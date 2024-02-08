@@ -1,7 +1,10 @@
 from firebase.firebase_utils import write_task_item, retrieve_data, delete_item_by_ref
 import random
+from time import sleep
 
 FIREBASE_DB = "myelin_hth_2_9_WAITING_PATIENTS"
+
+PAIRING_DB = "myelin_hth_2_9_PAIRINGS"
 
 
 
@@ -22,11 +25,13 @@ SCRIPT_PATIENT_DICT = {
         "RPM_PATIENT"
     ],
     "HRA_SCRIPT": [
-        "HRA_PATIENTS"
+        "HRA_PATIENT"
     ],
 }
 
-def ready_for_call(phone_number):
+def ready_for_call(name, phone_number):
+
+    sleep(random.randint(1, 5))
 
     waiting_patients = retrieve_data(FIREBASE_DB)
 
@@ -43,6 +48,7 @@ def ready_for_call(phone_number):
         CALLER_INFO = {
             "role": "patient",
             "user_phone_number": phone_number,
+            "user_name": name,
             "phone_number_to_call": None,
             "script": script,
             "patient": patient,
@@ -71,10 +77,16 @@ def ready_for_call(phone_number):
         CALLER_INFO = {
             "role": "nurse",
             "user_phone_number": phone_number,
+            "user_name": name,
             "phone_number_to_call": patient_result['user_phone_number'],
             "script": patient_result['script'],
             "patient": patient_result['patient'],
         }
+
+        write_task_item({
+            "NURSE_CALLER": CALLER_INFO,
+            "PATIENT_CALLED": patient_result
+        }, PAIRING_DB)
 
         # return the patient info to the nurse
         return CALLER_INFO
