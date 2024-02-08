@@ -6,18 +6,24 @@ FIREBASE_DB = "myelin_hth_2_9_WAITING_PATIENTS"
 
 
 SCRIPT_PATIENT_DICT = {
-    "script_A": [
-        "patient_A",
-        "patient_B",
-        "patient_C",
-        "patient_D",
+    "CHF_SCRIPT": [
+        "CHF_PATIENT"
     ],
-    "script_B": [
-        "patient_E",
-        "patient_F",
-        "patient_G",
-        "patient_H"
-    ]
+    "CKD_SCRIPT": [
+        "CKD_PATIENT"
+    ],
+    "HRT_SCRIPT": [
+        "HRT_PATIENT"
+    ],
+    "COLONOSCOPY_SCRIPT": [
+        "COLONSCOPY_PATIENT"
+    ],
+    "RPM_SCRIPT": [
+        "RPM_PATIENT"
+    ],
+    "HRA_SCRIPT": [
+        "HRA_PATIENTS"
+    ],
 }
 
 def ready_for_call(phone_number):
@@ -59,6 +65,8 @@ def ready_for_call(phone_number):
         patient_fb_id = patient['id']
         patient_result = patient['result']
         delete_item_by_ref(patient_fb_id, FIREBASE_DB)
+
+        # I should write the pairings out to a seperate DB
 
         CALLER_INFO = {
             "role": "nurse",
