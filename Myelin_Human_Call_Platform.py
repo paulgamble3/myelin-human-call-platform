@@ -26,6 +26,10 @@ with st.form(key='my_form'):
             st.subheader("You will be playing the following patient:")
             st.write(PATIENTS[pt_id])
 
+            google_form_url = "https://forms.gle/vEWfJsnLQeMLVzjB9"
+            st.subheader("Please fill out the following google form after the call:")
+            st.write(f"[Feedback Form]({google_form_url})")
+
             # need to provide the correct google form link
 
         if CALLER_INFO['role'] == "nurse":
@@ -42,6 +46,9 @@ with st.form(key='my_form'):
             st.write(SCRIPTS[script_id])
 
             # need to provide the correct google form link
+            google_form_url = "https://forms.gle/uEv4d6DdQbRXUw8o9"
+            st.subheader("Please fill out the following google form after the call:")
+            st.write(f"[Feedback Form]({google_form_url})")
 
 
         # give message to the nurse
