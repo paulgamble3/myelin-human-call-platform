@@ -88,5 +88,9 @@ def ready_for_call(name, phone_number):
             "PATIENT_CALLED": patient_result
         }, PAIRING_DB)
 
+        if CALLER_INFO["user_phone_number"] == patient_result["user_phone_number"]:
+            return {
+                "role": "SELF-CALL"
+            }
         # return the patient info to the nurse
         return CALLER_INFO

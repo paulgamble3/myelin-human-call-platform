@@ -17,6 +17,9 @@ with st.form(key='my_form'):
         #st.write(f"Thank you {user_name}! We will call you at {user_phone_number} shortly.")
 
         CALLER_INFO = hth_utils.ready_for_call(user_name, user_phone_number)
+
+        if CALLER_INFO['role'] == "SELF-CALL":
+            st.subheader("There is no one to call at the moment. Please try again in a few minutes!")
         
         if CALLER_INFO['role'] == "patient":
             st.subheader("You will be playing the patient.")
